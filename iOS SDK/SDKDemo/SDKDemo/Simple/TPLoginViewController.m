@@ -32,7 +32,7 @@
 - (IBAction)confirmAction {
     TPLoginObj *login = [TPLoginObj new];
     login.dappName = @"SDKDemo";
-    login.dappIcon = @"https://gz.bcebos.com/v1/tokenpocket/temp/mobile_sdk_demo.png";
+//    login.dappIcon = @"https://gz.bcebos.com/v1/tokenpocket/temp/mobile_sdk_demo.png";
     
     NSArray *comps = [_typeField.text componentsSeparatedByString:@";"];
     NSMutableArray *chains = NSMutableArray.new;

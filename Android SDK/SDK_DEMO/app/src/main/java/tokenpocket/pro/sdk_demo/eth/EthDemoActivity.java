@@ -2,11 +2,12 @@ package tokenpocket.pro.sdk_demo.eth;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import com.tokenpocket.opensdk.base.TPListener;
 import com.tokenpocket.opensdk.base.TPManager;
@@ -26,9 +27,9 @@ public class EthDemoActivity extends Activity implements View.OnClickListener {
 
     private Button btnAuthorize;
     private Button btnSign;
-    private Button btnPersonalSign;
     private Button btnTransfer;
     private Button btnPushTransaction;
+    private EditText etChainId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,13 +38,12 @@ public class EthDemoActivity extends Activity implements View.OnClickListener {
 
         btnAuthorize = findViewById(R.id.btn_authorize);
         btnSign = findViewById(R.id.btn_sign);
-        btnPersonalSign = findViewById(R.id.btn_personsign);
         btnTransfer = findViewById(R.id.btn_transfer);
         btnPushTransaction = findViewById(R.id.btn_pushtx);
+        etChainId = findViewById(R.id.et_chain_id);
 
         btnAuthorize.setOnClickListener(this);
         btnSign.setOnClickListener(this);
-        btnPersonalSign.setOnClickListener(this);
         btnTransfer.setOnClickListener(this);
         btnPushTransaction.setOnClickListener(this);
     }
@@ -57,9 +57,6 @@ public class EthDemoActivity extends Activity implements View.OnClickListener {
             case R.id.btn_sign:
                 EthSignActivity.start(this);
                 break;
-            case R.id.btn_personsign:
-                EthPersonalSignActivity.start(this);
-                break;
             case R.id.btn_transfer:
                 EthTransferActivity.start(this);
                 break;
@@ -70,11 +67,11 @@ public class EthDemoActivity extends Activity implements View.OnClickListener {
     }
 
     private void authorize() {
+        String chainId = etChainId.getText().toString();
         Authorize authorize = new Authorize();
         List blockchains = new ArrayList();
         //blockchains指定可以用哪些网络的钱包操作，evm系列，第一个参数是ethereum,第二个参数是网络的id
-        blockchains.add(new Blockchain("ethereum", "56"));
-        blockchains.add(new Blockchain("ethereum", "1"));
+        blockchains.add(new Blockchain("ethereum", chainId));
         authorize.setBlockchains(blockchains);
         authorize.setAction("login");
         //开发者自己定义的业务ID，用于标识操作，在授权登录中，需要设置该字段
